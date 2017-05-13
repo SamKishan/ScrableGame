@@ -2,6 +2,8 @@
 #By Sampreet Kishan
 #Date : 05/11/2017
 #Contact: sampreet.kishan@colorado.edu
+#To understand the code better, please refer to the readme file 'readme.txt'
+
 
 import sys
 import os
@@ -32,7 +34,9 @@ except:
 
 def scrable(words):
     #Function to print out the right words from the list
-    double_checker(word,"combination")
+    a=double_checker(word,"combination")
+    if(a==0):
+        return -1
     word_arr=[]
     for i in range(len(word)):
         word_arr.append(word[i])
@@ -52,31 +56,29 @@ def scrable(words):
                 if(line[i] not in word):
                     check=0
                 key=line[i]
-            #print(str(key))
 
                 if(alpha[key]==1):
                     check=0
                 elif(line[i] in word and alpha[line[i]]==0):
-                    #print("Setting: "+line[i])
                     alpha[line[i]]=1
             except:
                 check=0
-        #print(alpha)
 
         if(check==1):
             print(line)
             total=total+1
     if(total==0):
-        #print("\n\nNo words with those letters in the file \"words.txt\":(")
         return 0
     else:
         return total
-        #print("\n\nThe number of words present in the file \"words.txt\" is: "+str(total))
-            #$print("\n")
+
 
 def pref(words):
+    #Function to print out the words with the prefix entered as a system argument
     print("The prefix is: "+str(prefix))
-    double_checker(prefix,"prefix")
+    a=double_checker(prefix,"prefix")
+    if(a==0):
+        return -1
     words=words.splitlines()
     pref_len=len(prefix)
     total=0
@@ -92,15 +94,16 @@ def pref(words):
             print(line)
             total=total+1
     if(total==0):
-        #print("\n\nDid not find any words with the suffix "+prefix+" in the file \"words.txt\"")
         return 0
     else:
-        #print("\n\nFound "+str(total)+" words with the suffix "+prefix)
         return total
 
 def suff(words):
+    #Function to print all the words that contain the suffix which was entered as a system argument
     print("The suffix is:"+str(suffix))
-    double_checker(suffix,"suffix")
+    a=double_checker(suffix,"suffix")
+    if(a==0):
+        return -1
     words=words.splitlines()
     suff_len=len(suffix)-1
     total=0
@@ -119,26 +122,30 @@ def suff(words):
             print(line)
             total=total+1
     if(total==0):
-        #print("\n\nDid not find any words with the suffix "+suffix+" in the file \"words.txt\"")
         return 0
     else:
-        #print("\n\nFound "+str(total)+" words with the suffix "+suffix)
         return total
 
 def double_checker(text,type):
-    #Function to check if the word is valid or not
+    #Function to check if the word/prefix/suffix is valid or not.
+    #Checks if it has a character that occurs more than once in the string, in which case it is invalid
     k=0
+    check=1
     while(k!=len(text)):
-        if(text.count(text[k])>=2): #or (itext[k].islower()!=1)):
+        if(text.count(text[k])>=2):
             print("Not a valid "+str(type))
-            sys.exit()
+            check=0
+            break
         k=k+1
-
+    if(check==0):
+        return 0
+    else:
+        return 1
 
 def main():
+    #Calls all the above functions. Prints out a table of the results.
     print("\n\n")
     word_2=str(word)
-    #double_checker(word_2)
     if(os.path.isfile("words.txt")==0):
         print("The file does not exist.\nThe program will be quitting now.")
         sys.exit()
@@ -147,22 +154,29 @@ def main():
     x = PrettyTable(["Type", "Number of occurences"])
     if(word):
         scrable_no=scrable(f_read)
-        x.add_row(["Letter Combinations of " + str(word), scrable_no])
+        if(scrable_no==-1):
+            print("Invalid Combination")
+            #pass
+        else:
+            x.add_row(["Letter Combinations of \"" + str(word)+"\"", scrable_no])
     print("\n\n")
     if(prefix):
         pref_no=pref(f_read)
-        x.add_row(["Prefix of " + str(prefix), pref_no])
+        if(pref_no==-1):
+            print("Invalid prefix")
+            #pass
+        else:
+            x.add_row(["Prefix \"" + str(prefix)+"\"", pref_no])
     print("\n\n")
     if(suffix):
         suff_no=suff(f_read)
-        x.add_row(["Suffix of " + str(suffix), suff_no])
+        if(suff_no==-1):
+            print("Invalid suffix")
+            #pass
+        else:
+            x.add_row(["Suffix \"" + str(suffix)+"\"", suff_no])
     print("\n\n Statistics")
     print(x)
-
-
-
-
     print("*******The End********")
     fh.close()
-    sys.exit()
 main()
