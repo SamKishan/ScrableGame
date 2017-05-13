@@ -6,6 +6,10 @@ End date: 05/12/2017
 Python test framework: pytest
 Contact information: sampreet.kishan@colorado.edu
 
+
+YOU CAN USE THESE SCRIPTS WITHOUT ANY RESTRICTION. 
+
+
 ********************************************************************************************************************************
 
 INSTRUCTIONS TO RUN THE SCRIPTS:
