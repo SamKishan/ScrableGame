@@ -1,6 +1,6 @@
 Source code: scrabbler.py
 Test code: test_test.py
-Author: Sampreet Kishan
+Author: Sampy Kishan
 Start date: 05/11/2017
 End date: 05/12/2017
 Python test framework: pytest
