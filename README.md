@@ -4,7 +4,7 @@ Author: Sampreet Kishan
 Start date: 05/11/2017
 End date: 05/12/2017
 Python test framework: pytest
-Contact information: sampreet.kishan@colorado.edu
+Contact information: saki8093@colorado.edu
 
 
 YOU CAN USE THESE SCRIPTS WITHOUT ANY RESTRICTION. 
